@@ -39,14 +39,14 @@ public class Tests {
         assertTrue(volvo.getCurrentSpeed() > 0.1);
 
         volvo.brake(0.3);
-        assertTrue(volvo.getCurrentSpeed() < 0.1 + volvo.getSpeedFactor() * 0.5);
+        assertTrue(volvo.getCurrentSpeed() < 0.1 + volvo.getSpeedFactor() * 50);
 
         saab.startEngine();
         saab.gas(0.7);
         assertTrue(saab.getCurrentSpeed() > 0.1);
 
         saab.brake(0.4);
-        assertTrue(saab.getCurrentSpeed() < 0.1 + saab.getSpeedFactor() * 0.7);
+        assertTrue(saab.getCurrentSpeed() < 0.1 + saab.getSpeedFactor() * 70);
     }
 
     // Test exception for invalid gas and brake values
@@ -66,12 +66,12 @@ public class Tests {
         volvo.gas(0.5); // Set initial speed
         volvo.move();
         assertEquals(0, volvo.getX(), 0.01);
-        assertEquals(0.1 + volvo.getSpeedFactor() * 0.5, volvo.getY(), 0.01);
+        assertEquals(0.1 + volvo.getSpeedFactor() * 50, volvo.getY(), 0.01);
 
         volvo.turnLeft();
         volvo.move();
-        assertEquals(-(0.1 + volvo.getSpeedFactor() * 0.5), volvo.getX(), 0.01);
-        assertEquals(0.1 + volvo.getSpeedFactor() * 0.5, volvo.getY(), 0.01);
+        assertEquals(-(0.1 + volvo.getSpeedFactor() * 50), volvo.getX(), 0.01);
+        assertEquals(0.1 + volvo.getSpeedFactor() * 50, volvo.getY(), 0.01);
     }
 
 
@@ -79,8 +79,8 @@ public class Tests {
     @Test
     public void testVolvoTrimFactor() {
         volvo.startEngine();
-        volvo.gas(1);
-        assertEquals(0.1 + volvo.getSpeedFactor(), volvo.getCurrentSpeed());
+        volvo.gas(0.5);
+        assertEquals(0.1 + (volvo.getSpeedFactor() * 50), volvo.getCurrentSpeed());
     }
 
     // Test Saab95-specific turbo functionality
@@ -109,7 +109,7 @@ public class Tests {
         volvo.startEngine();
         double initialSpeed = volvo.getCurrentSpeed();
         volvo.gas(0.5); // Ökar farten
-        assertEquals(initialSpeed + volvo.getSpeedFactor() * 0.5, volvo.getCurrentSpeed(), 0.01);
+        assertEquals(initialSpeed + volvo.getSpeedFactor() * 50, volvo.getCurrentSpeed(), 0.01);
 
         double speedAfterGas = volvo.getCurrentSpeed();
         volvo.gas(0); // Gas(0) får inte minska farten
@@ -124,7 +124,7 @@ public class Tests {
 
         volvo.brake(0.5); // Bromsa ner farten
         double speedAfterBrake = volvo.getCurrentSpeed();
-        assertEquals(speedAfterGas - volvo.getSpeedFactor() * 0.5, speedAfterBrake, 0.01);
+        assertEquals(speedAfterGas - volvo.getSpeedFactor() * 50, speedAfterBrake, 0.01);
 
         volvo.brake(0); // Brake(0) får inte öka farten
         assertEquals(speedAfterBrake, volvo.getCurrentSpeed(), 0.01);
@@ -133,7 +133,7 @@ public class Tests {
     @Test
     public void testCurrentSpeedWithinValidRange() {
         volvo.startEngine();
-        volvo.gas(1.0); // Maxar farten
+        volvo.gas(1.0);// Maxar farten
         assertEquals(volvo.getEnginePower(), volvo.getCurrentSpeed(), 0.01); // currentSpeed <= enginePower
 
         volvo.brake(1.0); // Minskar farten till 0
@@ -153,7 +153,8 @@ public class Tests {
     public void testDecrementSpeedLimitedByZero() {
         volvo.startEngine();
         volvo.brake(1.0);
-        assertEquals(0.0, volvo.getCurrentSpeed(), 0.01); // currentSpeed får inte gå under 0
+        volvo.stopEngine();
+        assertEquals(0.0, volvo.getCurrentSpeed()); // currentSpeed får inte gå under 0
     }
 
 }

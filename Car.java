@@ -64,14 +64,14 @@ public abstract class Car implements Movable {
     public void gas(double amount) {
         if (amount < 0 || amount > 1) throw new IllegalArgumentException("Gas amount must be between 0 and 1");
         if (currentSpeed < enginePower) { // Endast öka farten om den inte redan är maxad
-            incrementSpeed(amount);
+            incrementSpeed(amount*100);
         }
     }
 
     public void brake(double amount) {
         if (amount < 0 || amount > 1) throw new IllegalArgumentException("Brake amount must be between 0 and 1");
         if (currentSpeed > amount) { // Endast minska farten om den inte redan är noll
-            decrementSpeed(amount);
+            decrementSpeed(amount*100);
         }
     }
 
