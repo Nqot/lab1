@@ -70,7 +70,7 @@ public abstract class Car implements Movable {
 
     public void brake(double amount) {
         if (amount < 0 || amount > 1) throw new IllegalArgumentException("Brake amount must be between 0 and 1");
-        if (currentSpeed > 0) { // Endast minska farten om den inte redan är noll
+        if (currentSpeed > amount) { // Endast minska farten om den inte redan är noll
             decrementSpeed(amount);
         }
     }

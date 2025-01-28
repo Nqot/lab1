@@ -16,7 +16,6 @@ public class Tests {
     }
 
     // Test for starting and stopping the engine
-    @org.junit.Test
     @Test
     public void testStartAndStopEngine() {
         volvo.startEngine();
@@ -97,11 +96,6 @@ public class Tests {
         assertTrue(speedWithTurbo > speedWithoutTurbo);
     }
 
-    public void testGasAcceptsOnlyValidRange() {
-        // Test att gas() kastar exception för ogiltiga värden
-        assertThrows(IllegalArgumentException.class, () -> volvo.gas(-0.1));
-        assertThrows(IllegalArgumentException.class, () -> volvo.gas(1.1));
-    }
 
     @Test
     public void testBrakeAcceptsOnlyValidRange() {
@@ -146,9 +140,11 @@ public class Tests {
         assertEquals(0.0, volvo.getCurrentSpeed(), 0.01); // currentSpeed >= 0
     }
 
+
+
     @Test
     public void testIncrementSpeedLimitedByEnginePower() {
-     //   volvo.startEngine();
+        volvo.startEngine();
         volvo.gas(1.0);
         assertTrue(volvo.getEnginePower() >= volvo.getCurrentSpeed()); // currentSpeed får inte överstiga enginePower
     }
