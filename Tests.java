@@ -58,7 +58,12 @@ public class Tests {
         assertThrows(IllegalArgumentException.class, () -> volvo.brake(-0.1));
         assertThrows(IllegalArgumentException.class, () -> volvo.brake(1.1));
     }
-
+    // Test set color
+    @Test
+    public void testColor() {
+        volvo.setColor("blue");
+        assertEquals("blue", volvo.getColor());
+    }
     // Test move and turn functionality
     @Test
     public void testMoveAndTurn() {
@@ -72,6 +77,17 @@ public class Tests {
         volvo.move();
         assertEquals(-(0.1 + volvo.getSpeedFactor() * 50), volvo.getX(), 0.01);
         assertEquals(0.1 + volvo.getSpeedFactor() * 50, volvo.getY(), 0.01);
+
+        volvo.turnRight();
+        volvo.turnRight();
+        volvo.move();
+        assertEquals(0, volvo.getX(), 0.01);
+        assertEquals(0.1 + volvo.getSpeedFactor() * 50, volvo.getY(), 0.01);
+
+        volvo.turnRight();
+        volvo.move();
+        assertEquals(0, volvo.getX(), 0.01);
+        assertEquals(0, volvo.getX(), 0.01);
     }
 
 

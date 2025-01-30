@@ -58,7 +58,11 @@ public abstract class Car implements Movable {
     }
 
     protected void decrementSpeed(double amount) {
-        currentSpeed = Math.max(currentSpeed - getSpeedFactor() * amount, 0); // Begränsa till 0
+        if (currentSpeed > 0){
+        currentSpeed = Math.max(currentSpeed - getSpeedFactor() * amount, 0);// Begränsa till 0
+        } else if (currentSpeed < 0) {
+            currentSpeed = Math.min(currentSpeed - getSpeedFactor() * amount, 0);
+        }
     }
 
     public void gas(double amount) {
@@ -70,8 +74,8 @@ public abstract class Car implements Movable {
 
     public void brake(double amount) {
         if (amount < 0 || amount > 1) throw new IllegalArgumentException("Brake amount must be between 0 and 1");
-        if (currentSpeed > amount) { // Endast minska farten om den inte redan är noll
-            decrementSpeed(amount*100);
+        if (Math.abs(currentSpeed) > 0) { // Endast minska farten om den inte redan är noll
+            decrementSpeed(amount * 100);
         }
     }
 
