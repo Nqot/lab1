@@ -8,11 +8,13 @@ public class Tests {
 
     private Volvo240 volvo;
     private Saab95 saab;
+    private Scania scania;
 
     @BeforeEach
     public void setUp() {
         volvo = new Volvo240();
         saab = new Saab95();
+        scania = new Scania();
     }
 
     // Test for starting and stopping the engine
@@ -149,6 +151,7 @@ public class Tests {
     @Test
     public void testCurrentSpeedWithinValidRange() {
         volvo.startEngine();
+        volvo.gas(1.0);
         volvo.gas(1.0);// Maxar farten
         assertEquals(volvo.getEnginePower(), volvo.getCurrentSpeed(), 0.01); // currentSpeed <= enginePower
 
@@ -171,6 +174,13 @@ public class Tests {
         volvo.brake(1.0);
         volvo.stopEngine();
         assertEquals(0.0, volvo.getCurrentSpeed()); // currentSpeed får inte gå under 0
+    }
+
+    @Test
+    public void testStartEngineWithTrailerDown() {
+        scania.lowerTrailer(70);
+        scania.startEngine();
+        assertEquals(0, scania.getCurrentSpeed());
     }
 
 }
