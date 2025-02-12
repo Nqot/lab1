@@ -95,6 +95,11 @@ public abstract class Car implements Movable {
         }
     }
 
+    public void moveTo(double newX, double newY) {
+        x = newX;
+        y = newY;
+    }
+
     @Override
     public void turnLeft() {
         direction = (direction + 3) % 4; // Cirkulär rotation åt vänster
