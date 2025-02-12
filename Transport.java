@@ -12,6 +12,7 @@ public class Transport extends Car implements loadable {
         this.loadedCars = new Stack<>();
         this.trailer = new Trailer();
         this.maxCars = 5;
+        stopEngine();
     }
 
     public void lowerRamp() {
@@ -28,12 +29,12 @@ public class Transport extends Car implements loadable {
         if      (getTrailerAngle() == 70
                 && getCurrentSpeed() == 0
                 && loadedCars.size() <= maxCars
-                && !(car instanceof Transport)
+                && !((car instanceof Transport) || (car instanceof Scania))
                 && checkCarDistance(car)) {
             loadedCars.push(car);
             car.moveTo(getX(), getY());
 
-        };
+        }
     }
     public boolean checkCarDistance(Car car){
         return Math.hypot(getX() - car.getX(), getY() - car.getY()) <= 2;

@@ -19,6 +19,10 @@ public class Repairshop<T extends Car>{
         return loadedCars;
     }
 
+    public int getCarCount(){
+        return loadedCars.size();
+    }
+
     public Class<?>[] getCarTypes() {
         return carTypes;
     }
@@ -45,7 +49,7 @@ public class Repairshop<T extends Car>{
 
     public Car unloadCar(int carNumber) {
         Car unloaded = null;
-        if(carNumber != 0 && carNumber < loadedCars.size()) {
+        if(carNumber < loadedCars.size()) {
             unloaded = loadedCars.get(carNumber);
             loadedCars.remove(carNumber);
         }

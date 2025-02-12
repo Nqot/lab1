@@ -178,7 +178,7 @@ public class Tests {
 
     @Test
     public void testStartEngineWithTrailerDown() {
-        scania.lowerTrailer(70);
+        scania.setTrailerAngle(70);
         scania.startEngine();
         assertEquals(0, scania.getCurrentSpeed());
     }

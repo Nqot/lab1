@@ -5,7 +5,7 @@ public class Scania extends Car {
     private Trailer trailer;
 
     public Scania() {
-        super(2, 100, "White", "Scania");
+        super(2, 75, "White", "Scania");
         this.trailer = new Trailer();
         stopEngine();
     }
