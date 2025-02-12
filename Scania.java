@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Scania extends Car {
 
     private Trailer trailer;
