@@ -1,36 +1,27 @@
-public class Scania extends Car implements Trailer {
+public class Scania extends Car {
 
-    private double trailerAngle;
-    private boolean ifTrailerUp;
+    private Trailer trailer;
 
     public Scania() {
         super(2, 100, "White", "Scania");
-        this.trailerAngle = 0;
-        setIfTrailerUp();
+        this.trailer = new Trailer();
+        stopEngine();
     }
 
-    public void lowerTrailer(double degree){
-        if (degree < 0 || degree > 70) throw new IllegalArgumentException("trailer angle must be between 0 and 70");
-        if (trailerAngle < 70 && !getEngineOn()) {
-            trailerAngle = (Math.min(70, trailerAngle + degree));
-        }
-        setIfTrailerUp();
+    public void setTrailerAngle(int angle){
+        if (getCurrentSpeed() == 0) {this.trailer.setTrailerAngle(angle);}
     }
 
-    public void elevateTrailer(double degree){
-        if (degree < 0 || degree > 70) throw new IllegalArgumentException("trailer angle must be between 0 and 70");
-        if (trailerAngle > 0){
-            trailerAngle = (Math.max(0, trailerAngle - degree));
-        }
-        setIfTrailerUp();
-    }
+    public double getTrailerAngle(){return this.trailer.getTrailerAngle();}
 
-    protected double getTrailerAngle(){return trailerAngle;}
-    protected boolean getTrailerUp(){return trailerAngle == 0;}
-    protected void setIfTrailerUp(){ifTrailerUp = trailerAngle == 0;}
 
     @Override
     public void startEngine(){
-        if (ifTrailerUp) {super.startEngine();}
+        if (this.trailer.getTrailerAngle() == 0) {super.startEngine();}
+    }
+
+    @Override
+    public void move(){
+        if (this.trailer.getTrailerAngle() == 0) {super.move();}
     }
 }

@@ -2,7 +2,6 @@
 public abstract class Car implements Movable {
 
     private int nrDoors;
-    private boolean engineOn;
     private double enginePower;
     private double currentSpeed;
     private String color;
@@ -26,8 +25,6 @@ public abstract class Car implements Movable {
         return nrDoors;
     }
 
-    public boolean getEngineOn() { return engineOn;}
-
     public double getEnginePower() {
         return enginePower;
     }
@@ -45,12 +42,10 @@ public abstract class Car implements Movable {
     }
 
     public void startEngine() {
-        engineOn = true;
         currentSpeed = 0.1;
     }
 
     public void stopEngine() {
-        engineOn = false;
         currentSpeed = 0;
     }
 
@@ -72,7 +67,7 @@ public abstract class Car implements Movable {
 
     public void gas(double amount) {
         if (amount < 0 || amount > 1) throw new IllegalArgumentException("Gas amount must be between 0 and 1");
-        if (engineOn && currentSpeed < enginePower) { // Endast öka farten om den inte redan är maxad
+        if (currentSpeed < enginePower) { // Endast öka farten om den inte redan är maxad
             incrementSpeed(amount*100);
         }
     }

@@ -19,7 +19,7 @@ public class Repairshop<T extends Car>{
 
 
     public void loadCar(T car) {
-        if (loadedCars.size() < maxCars && ){
+        if (loadedCars.size() < maxCars){
             loadedCars.add(car);
         }
     }
