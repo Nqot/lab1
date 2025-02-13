@@ -7,14 +7,17 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Tests {
 
     private Volvo240 volvo;
+    Volvo240 volvo2 = new Volvo240();
     private Saab95 saab;
     private Scania scania;
+    private Transport transport;
 
     @BeforeEach
     public void setUp() {
         volvo = new Volvo240();
         saab = new Saab95();
         scania = new Scania();
+        transport = new Transport(3);
     }
 
     // Test for starting and stopping the engine
@@ -181,6 +184,17 @@ public class Tests {
         scania.setTrailerAngle(70);
         scania.startEngine();
         assertEquals(0, scania.getCurrentSpeed());
+    }
+
+    @Test
+    public void testScaniaIsFull() {
+
+        transport.lowerRamp();
+        transport.loadCar(volvo);
+        transport.loadCar(volvo2);
+        transport.loadCar(saab);
+        assertEquals(3, transport.getAmountLoaded());
+        assertTrue(transport.isFull());
     }
 
 }

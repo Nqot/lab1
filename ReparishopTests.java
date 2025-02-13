@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 
-class WorkshopTest {
+class RepairshopTest {
 
     private Repairshop<Volvo240> volvoWorkshop;
 

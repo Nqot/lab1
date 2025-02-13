@@ -7,11 +7,11 @@ public class Transport extends Car implements loadable {
     private Trailer trailer;
 
 
-    public Transport() {
+    public Transport(int maxCars) {
         super(2, 75, "White", "Transport");
         this.loadedCars = new Stack<>();
         this.trailer = new Trailer();
-        this.maxCars = 5;
+        this.maxCars = maxCars;
         stopEngine();
     }
 
@@ -59,7 +59,7 @@ public class Transport extends Car implements loadable {
         if(this.trailer.getTrailerAngle() == 0) {super.startEngine();}
     }
 
-    public boolean isFull() {return loadedCars.size() >= 5;}
+    public boolean isFull() {return loadedCars.size() == maxCars;}
 
     public int getAmountLoaded() {return loadedCars.size();}
 }
