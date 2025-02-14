@@ -1,17 +1,17 @@
 import java.awt.*;
 import java.util.Stack;
 
-public class Transport extends Car implements loadable {
+public class Transport extends Truck implements loadable {
     private static int maxCars;
     private Stack<Car> loadedCars;
     private Trailer trailer;
 
 
-    public Transport() {
+    public Transport(int maxCars) {
         super(2, 75, "White", "Transport");
         this.loadedCars = new Stack<>();
         this.trailer = new Trailer();
-        this.maxCars = 5;
+        this.maxCars = maxCars;
         stopEngine();
     }
 
@@ -29,7 +29,6 @@ public class Transport extends Car implements loadable {
         if      (getTrailerAngle() == 70
                 && getCurrentSpeed() == 0
                 && loadedCars.size() <= maxCars
-                && !((car instanceof Transport) || (car instanceof Scania))
                 && checkCarDistance(car)) {
             loadedCars.push(car);
             car.moveTo(getX(), getY());
@@ -59,7 +58,7 @@ public class Transport extends Car implements loadable {
         if(this.trailer.getTrailerAngle() == 0) {super.startEngine();}
     }
 
-    public boolean isFull() {return loadedCars.size() >= 5;}
+    public boolean isFull() {return loadedCars.size() == maxCars;}
 
     public int getAmountLoaded() {return loadedCars.size();}
 }

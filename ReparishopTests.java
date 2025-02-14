@@ -26,9 +26,9 @@ class RepairshopTest {
 
         // Skapar instanser av verkstäder och bilar inför varje test
 
-        volvoWorkshop = new Repairshop(2, Volvo240.class); // Märkesverkstad för Volvo240
+        volvoWorkshop = new Repairshop<Volvo240>(2); // Märkesverkstad för Volvo240
 
-        generalWorkshop = new Repairshop(3, Car.class); // Generisk verkstad för alla bilar
+        generalWorkshop = new Repairshop<Car>(3); // Generisk verkstad för alla bilar
 
         volvo1 = new Volvo240();
 

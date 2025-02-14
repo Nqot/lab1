@@ -5,14 +5,14 @@ public class Repairshop<T extends Car>{
     private final int maxCars;
     private static final double loadDistance = 2.0;
     private ArrayList<T> loadedCars;
-    private Class<?>[] carTypes;
+    //private Class<?>[] carTypes;
     //private final double x;
     //private final double y;
 
-    public Repairshop(int maxCars, Class<? extends T>... carModels) {
+    public Repairshop(int maxCars) {
         this.maxCars = maxCars;
         this.loadedCars = new ArrayList<>();
-        this.carTypes = carModels;
+        //this.carTypes = carModels;
     }
 
     public ArrayList<T> getLoadedCars(){
@@ -23,28 +23,11 @@ public class Repairshop<T extends Car>{
         return loadedCars.size();
     }
 
-    public Class<?>[] getCarTypes() {
-        return carTypes;
-    }
-
-    private boolean isAccepted(T car) {
-        boolean check = false;
-        if (loadedCars.size() == this.maxCars) {
-         return false;
-        } else {
-            for (Class<?> model : carTypes) {
-                if (model.isInstance(car)) {
-                    check = true;
-                    break;
-                }
-            }
-        }   return check;
-    }
 
     public void loadCar(T car) {
-        if (isAccepted(car)){
+        if (!(loadedCars.size() == this.maxCars)){
             loadedCars.add(car);
-        } else throw new IllegalArgumentException("wrong car model");
+        } else throw new IllegalArgumentException("Garage is full");
     }
 
     public Car unloadCar(int carNumber) {
