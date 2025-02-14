@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.Stack;
 
-public class Transport extends Car implements loadable {
+public class Transport extends Truck implements loadable {
     private static int maxCars;
     private Stack<Car> loadedCars;
     private Trailer trailer;
@@ -29,7 +29,6 @@ public class Transport extends Car implements loadable {
         if      (getTrailerAngle() == 70
                 && getCurrentSpeed() == 0
                 && loadedCars.size() <= maxCars
-                && !((car instanceof Transport) || (car instanceof Scania))
                 && checkCarDistance(car)) {
             loadedCars.push(car);
             car.moveTo(getX(), getY());
