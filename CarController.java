@@ -49,7 +49,7 @@ public class CarController {
                 vehicle.move();
                 int x = (int) Math.round(vehicle.getX());
                 int y = (int) Math.round(vehicle.getY());
-                frame.drawPanel.moveit(x, y);
+                frame.drawPanel.moveit(vehicle, x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -59,10 +59,9 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-       for (Vehicle vehicle : vehicles
-                ) {
+       for (Vehicle vehicle : vehicles) {
             vehicle.gas(gas);
-        }
+       }
     }
 
     void brake(int amount) {
@@ -85,8 +84,38 @@ public class CarController {
     }
 
     void turboOn() {
-        //for (Saab95 saab : vehicles) {
-
-        //}
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle instanceof Saab95) {
+                ((Saab95) vehicle).setTurboOn();
+            }
+        }
     }
+
+    void turboOff() {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle instanceof Saab95) {
+                ((Saab95) vehicle).setTurboOff();
+            }
+        }
+    }
+
+    void bedUp() {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle instanceof Scania) {
+                ((Scania) vehicle).setTrailerAngle(0);
+            }
+        }
+    }
+
+    void bedDown() {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle instanceof Scania) {
+                ((Scania) vehicle).setTrailerAngle(70);
+            }
+        }
+    }
+
+
+
+
 }

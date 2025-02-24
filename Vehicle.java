@@ -6,8 +6,8 @@ public abstract class Vehicle implements Movable{
     private double currentSpeed;
     private String color;
     private final String modelName;
-    private double x; // X-position
-    private double y; // Y-position
+    protected double x; // X-position
+    protected double y; // Y-position
     private int direction; // 0 = North, 1 = East, 2 = South, 3 = West
 
     protected Vehicle (int nrDoors, double enginePower, String color, String modelName) {
@@ -42,12 +42,10 @@ public abstract class Vehicle implements Movable{
     }
 
     public void startEngine() {
-        currentSpeed = 0.1;
         engineOn = true;
     }
 
     public void stopEngine() {
-        currentSpeed = 0;
         engineOn = false;
     }
 

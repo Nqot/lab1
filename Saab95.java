@@ -8,6 +8,7 @@ public class Saab95 extends Car {
     public Saab95() {
         super(2, 125, "red", "Saab95");
         this.turboOn = false;
+        this.x = 100;
     }
 
     public void setTurboOn() {
