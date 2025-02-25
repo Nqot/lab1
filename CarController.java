@@ -22,6 +22,7 @@ public class CarController {
     CarView frame;
     // A list of cars, modify if needed
     ArrayList<Vehicle> vehicles = new ArrayList<>();
+    private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(10);
 
     //methods:
 
@@ -32,6 +33,8 @@ public class CarController {
         cc.vehicles.add(new Volvo240());
         cc.vehicles.add(new Saab95());
         cc.vehicles.add(new Scania());
+
+
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -47,9 +50,10 @@ public class CarController {
         public void actionPerformed(ActionEvent e) {
             for (Vehicle vehicle : vehicles) {
                 vehicle.move();
+                checkBoundaries(vehicle);
                 int x = (int) Math.round(vehicle.getX());
                 int y = (int) Math.round(vehicle.getY());
-                frame.drawPanel.moveit(vehicle, x, y);
+                frame.drawPanel.moveit(x, y, vehicles.indexOf(vehicle));
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -115,6 +119,28 @@ public class CarController {
         }
     }
 
+    void loadVolvoToWorkshop() {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle instanceof Volvo240) {
+                if (Math.abs(vehicle.getX() - volvoWorkshop.getX()) < 10 && Math.abs(vehicle.getY() - volvoWorkshop.getY()) < 10) {
+                    volvoWorkshop.loadCar((Volvo240) vehicle);
+                    vehicles.remove(vehicle);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void checkBoundaries(Vehicle vehicle) {
+        if (vehicle.getX() < 0 || vehicle.getX() > frame.getWidth() - 100) {
+            vehicle.turnLeft();
+            vehicle.turnLeft();
+        }
+        if (vehicle.getY() < 0 || vehicle.getY() > frame.getHeight() - 240) {
+            vehicle.turnLeft();
+            vehicle.turnLeft();
+        }
+    }
 
 
 
