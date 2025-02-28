@@ -1,12 +1,13 @@
 public abstract class Vehicle implements Movable{
 
-    private int nrDoors;
-    private double enginePower;
+    private final int nrDoors;
+    private final double enginePower;
+    private boolean engineOn;
     private double currentSpeed;
     private String color;
-    private String modelName;
-    private double x; // X-position
-    private double y; // Y-position
+    private final String modelName;
+    protected double x; // X-position
+    protected double y; // Y-position
     private int direction; // 0 = North, 1 = East, 2 = South, 3 = West
 
     protected Vehicle (int nrDoors, double enginePower, String color, String modelName) {
@@ -41,11 +42,11 @@ public abstract class Vehicle implements Movable{
     }
 
     public void startEngine() {
-        currentSpeed = 0.1;
+        engineOn = true;
     }
 
     public void stopEngine() {
-        currentSpeed = 0;
+        engineOn = false;
     }
 
     protected double getSpeedFactor() {
@@ -66,7 +67,7 @@ public abstract class Vehicle implements Movable{
 
     public void gas(double amount) {
         if (amount < 0 || amount > 1) throw new IllegalArgumentException("Gas amount must be between 0 and 1");
-        if (currentSpeed < enginePower) { // Endast öka farten om den inte redan är maxad
+        if (currentSpeed < enginePower && engineOn) { // Endast öka farten om den inte redan är maxad
             incrementSpeed(amount*100);
         }
     }

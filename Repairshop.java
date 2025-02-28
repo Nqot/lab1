@@ -6,13 +6,14 @@ public class Repairshop<T extends Car>{
     private static final double loadDistance = 2.0;
     private ArrayList<T> loadedCars;
     //private Class<?>[] carTypes;
-    //private final double x;
-    //private final double y;
+    private final double x;
+    private final double y;
 
     public Repairshop(int maxCars) {
         this.maxCars = maxCars;
         this.loadedCars = new ArrayList<>();
-        //this.carTypes = carModels;
+        this.x = 300;
+        this.y = 300;
     }
 
     public ArrayList<T> getLoadedCars(){
@@ -37,5 +38,13 @@ public class Repairshop<T extends Car>{
             loadedCars.remove(carNumber);
         }
         return unloaded;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 }

@@ -7,7 +7,7 @@ public class Scania extends Truck {
     public Scania() {
         super(2, 75, "White", "Scania");
         this.trailer = new Trailer();
-        stopEngine();
+
     }
 
     public void setTrailerAngle(int angle){
