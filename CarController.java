@@ -51,13 +51,13 @@ public class CarController {
             for (Vehicle vehicle : vehicles) {
                 vehicle.move();
                 checkBoundaries(vehicle);
-                loadVolvoToWorkshop(vehicle);
                 int x = (int) Math.round(vehicle.getX());
                 int y = (int) Math.round(vehicle.getY());
                 frame.drawPanel.moveit(x, y, vehicles.indexOf(vehicle));
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
+            loadVolvoToWorkshop(vehicles.get(0));
         }
     }
 
@@ -125,8 +125,8 @@ public class CarController {
                 if (Math.abs(vehicle.getX() - volvoWorkshop.getX()) < 10 && Math.abs(vehicle.getY() - volvoWorkshop.getY()) < 10) {
                     if (vehicle.getCurrentSpeed() > 0) {
                         volvoWorkshop.loadCar((Volvo240) vehicle);
-                        vehicle.stopEngine();
-                        vehicle.brake(1);
+                        vehicles.remove(vehicle);
+                        
                     }
                 }
             }
