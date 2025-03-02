@@ -83,7 +83,6 @@ public class DrawPanel extends JPanel{
             g.drawImage(carImages.get(i), carPoints.get(i).x, carPoints.get(i).y, null);
         }
 
-
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
     }
 }

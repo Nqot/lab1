@@ -35,7 +35,7 @@ public class Transport extends Truck implements loadable {
 
         }
     }
-    public boolean checkCarDistance(Car car){
+    private boolean checkCarDistance(Car car){
         return Math.hypot(getX() - car.getX(), getY() - car.getY()) <= 2;
     }
 
