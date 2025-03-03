@@ -58,6 +58,7 @@ public class CarController {
                 frame.drawPanel.repaint();
             }
             loadVolvoToWorkshop(vehicles.get(0));
+
         }
     }
 
@@ -126,7 +127,9 @@ public class CarController {
                     if (vehicle.getCurrentSpeed() > 0) {
                         volvoWorkshop.loadCar((Volvo240) vehicle);
                         vehicles.remove(vehicle);
-                        
+                        frame.drawPanel.removePoint(0);
+                        frame.drawPanel.removeImage(0);
+
                     }
                 }
             }
