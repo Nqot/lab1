@@ -21,7 +21,7 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-    ArrayList<Vehicle> vehicles = new ArrayList<>();
+    private ArrayList<Vehicle> vehicles = new ArrayList<>();
     private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(10);
 
     //methods:
@@ -57,6 +57,8 @@ public class CarController {
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
+            loadVolvoToWorkshop(vehicles.get(0));
+
         }
     }
 
@@ -119,16 +121,18 @@ public class CarController {
         }
     }
 
-    void loadVolvoToWorkshop() {
-        for (Vehicle vehicle : vehicles) {
+    void loadVolvoToWorkshop(Vehicle vehicle) {
             if (vehicle instanceof Volvo240) {
                 if (Math.abs(vehicle.getX() - volvoWorkshop.getX()) < 10 && Math.abs(vehicle.getY() - volvoWorkshop.getY()) < 10) {
-                    volvoWorkshop.loadCar((Volvo240) vehicle);
-                    vehicles.remove(vehicle);
-                    break;
+                    if (vehicle.getCurrentSpeed() > 0) {
+                        volvoWorkshop.loadCar((Volvo240) vehicle);
+                        vehicles.remove(vehicle);
+                        frame.drawPanel.removePoint(0);
+                        frame.drawPanel.removeImage(0);
+
+                    }
                 }
             }
-        }
     }
 
     private void checkBoundaries(Vehicle vehicle) {

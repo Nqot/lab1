@@ -3,6 +3,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -15,7 +17,7 @@ public class DrawPanel extends JPanel{
 
     private ArrayList<BufferedImage> carImages = new ArrayList<>();
     private ArrayList<Point> carPoints = new ArrayList<>();
-
+    private VehicleInfo info;
 
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
@@ -25,18 +27,6 @@ public class DrawPanel extends JPanel{
 
         carPoints.get(carIndex).x = x;
         carPoints.get(carIndex).y = y;
-
-        /*
-        if (vehicle instanceof Volvo240) {
-            volvoPoint.x = x;
-            volvoPoint.y = y;
-        } else if (vehicle instanceof Saab95) {
-            saabPoint.x = x;
-            saabPoint.y = y;
-        } else if (vehicle instanceof Scania) {
-            scaniaPoint.x = x;
-            scaniaPoint.y = y;
-        }*/
     }
 
     // Initializes the panel and reads the images
@@ -83,7 +73,12 @@ public class DrawPanel extends JPanel{
             g.drawImage(carImages.get(i), carPoints.get(i).x, carPoints.get(i).y, null);
         }
 
-
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
+    }
+    public void removePoint(int pointIndex){
+        carPoints.remove(pointIndex);
+    }
+    public void removeImage(int imageIndex) {
+        carImages.remove(imageIndex);
     }
 }
