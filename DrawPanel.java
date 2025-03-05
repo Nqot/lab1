@@ -68,9 +68,16 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        for (int i = 0; i < carPoints.size(); i++) {
-            g.drawImage(carImages.get(i), carPoints.get(i).x, carPoints.get(i).y, null);
+        BufferedImage image = volvoWorkshopImage;
+        for (Vehicle vehicle : info.getVehicles()) {
+            if (vehicle instanceof Volvo240) {
+                image = carImages.get(0);
+            } else if (vehicle instanceof Saab95) {
+                image = carImages.get(1);
+            } else if (vehicle instanceof Scania) {
+                image = carImages.get(2);
+            }
+            g.drawImage(image, (int)vehicle.getX(), (int)vehicle.getY(), null);
         }
 
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);

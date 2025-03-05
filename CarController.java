@@ -23,12 +23,19 @@ public class CarController {
     // A list of cars, modify if needed
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
     private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(10);
+    private VehicleInfo info = new VehicleInfo();
+
 
     //methods:
 
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
+
+
+        cc.info.addVehicle(new Volvo240());
+        cc.info.addVehicle(new Saab95());
+        cc.info.addVehicle(new Scania());
 
         cc.vehicles.add(new Volvo240());
         cc.vehicles.add(new Saab95());
@@ -48,16 +55,16 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Vehicle vehicle : vehicles) {
+            for (Vehicle vehicle : info.getVehicles()) {
                 vehicle.move();
                 checkBoundaries(vehicle);
                 int x = (int) Math.round(vehicle.getX());
                 int y = (int) Math.round(vehicle.getY());
-                frame.drawPanel.moveit(x, y, vehicles.indexOf(vehicle));
+                frame.drawPanel.moveit(x, y, info.getVehicles().indexOf(vehicle));
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
-            loadVolvoToWorkshop(vehicles.get(0));
+            loadVolvoToWorkshop(info.getVehicles().get(0));
 
         }
     }
@@ -65,32 +72,32 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-       for (Vehicle vehicle : vehicles) {
+       for (Vehicle vehicle : info.getVehicles()) {
             vehicle.gas(gas);
        }
     }
 
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (Vehicle vehicle : vehicles) {
+        for (Vehicle vehicle : info.getVehicles()) {
             vehicle.brake(brake);
         }
     }
 
     void startEngine() {
-        for (Vehicle vehicle : vehicles) {
+        for (Vehicle vehicle : info.getVehicles()) {
             vehicle.startEngine();
         }
     }
 
     void stopEngine() {
-        for (Vehicle vehicle : vehicles) {
+        for (Vehicle vehicle : info.getVehicles()) {
             vehicle.stopEngine();
         }
     }
 
     void turboOn() {
-        for (Vehicle vehicle : vehicles) {
+        for (Vehicle vehicle : info.getVehicles()) {
             if (vehicle instanceof Saab95) {
                 ((Saab95) vehicle).setTurboOn();
             }
@@ -98,7 +105,7 @@ public class CarController {
     }
 
     void turboOff() {
-        for (Vehicle vehicle : vehicles) {
+        for (Vehicle vehicle : info.getVehicles()) {
             if (vehicle instanceof Saab95) {
                 ((Saab95) vehicle).setTurboOff();
             }
@@ -106,7 +113,7 @@ public class CarController {
     }
 
     void bedUp() {
-        for (Vehicle vehicle : vehicles) {
+        for (Vehicle vehicle : info.getVehicles()) {
             if (vehicle instanceof Scania) {
                 ((Scania) vehicle).setTrailerAngle(0);
             }
@@ -114,7 +121,7 @@ public class CarController {
     }
 
     void bedDown() {
-        for (Vehicle vehicle : vehicles) {
+        for (Vehicle vehicle : info.getVehicles()) {
             if (vehicle instanceof Scania) {
                 ((Scania) vehicle).setTrailerAngle(70);
             }
@@ -124,13 +131,11 @@ public class CarController {
     void loadVolvoToWorkshop(Vehicle vehicle) {
             if (vehicle instanceof Volvo240) {
                 if (Math.abs(vehicle.getX() - volvoWorkshop.getX()) < 10 && Math.abs(vehicle.getY() - volvoWorkshop.getY()) < 10) {
-                    if (vehicle.getCurrentSpeed() > 0) {
-                        volvoWorkshop.loadCar((Volvo240) vehicle);
-                        vehicles.remove(vehicle);
-                        frame.drawPanel.removePoint(0);
-                        frame.drawPanel.removeImage(0);
+                    volvoWorkshop.loadCar((Volvo240) vehicle);
+                    info.getVehicles().remove(vehicle);
+                    frame.drawPanel.removePoint(0);
+                    frame.drawPanel.removeImage(0);
 
-                    }
                 }
             }
     }

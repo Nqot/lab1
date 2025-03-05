@@ -1,21 +1,20 @@
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class VehicleInfo {
-    private HashMap<Vehicle, BufferedImage> Vehicles;
+    private ArrayList<Vehicle> vehicles;
 
     VehicleInfo(){
-        Vehicles = new HashMap<>();
+        this.vehicles = new ArrayList<>();
 
     }
 
-    public HashMap<Vehicle, BufferedImage> getVehicles() {
-        return Vehicles;
+    public ArrayList<Vehicle> getVehicles() {
+        return vehicles;
     }
 
-    public void addVehicle(Vehicle vehicle, BufferedImage image) {
-        Vehicles.put(vehicle, image);
+    public void addVehicle(Vehicle vehicle) {
+        vehicles.add(vehicle);
     }
+
+    public void removeVehicle(Vehicle vehicle) {vehicles.remove(vehicle);}
 }
