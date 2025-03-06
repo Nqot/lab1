@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,6 +24,15 @@ public class CarController {
     // A list of cars, modify if needed
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
     private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(10);
+
+    private final ArrayList<VehicleObserver> observers = new ArrayList<>();
+    public void addObserver(VehicleObserver observer) {observers.add(observer);}
+    public void removeObserver(VehicleObserver observer) {observers.remove(observer);}
+    private void multicastStatusChange() {
+        for (VehicleObserver observer : observers) {
+            observer.actOnChange(name, newStatus);
+        }
+    }
 
     //methods:
 
