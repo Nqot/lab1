@@ -10,7 +10,7 @@ import java.util.ArrayList;
 * modifying the model state and the updating the view.
  */
 
-public class CarController {
+public class CarController implements VehicleObserver {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -25,20 +25,20 @@ public class CarController {
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
     private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(10);
 
-    private final ArrayList<VehicleObserver> observers = new ArrayList<>();
-    public void addObserver(VehicleObserver observer) {observers.add(observer);}
-    public void removeObserver(VehicleObserver observer) {observers.remove(observer);}
-    private void multicastStatusChange() {
-        for (VehicleObserver observer : observers) {
-            observer.actOnChange(name, newStatus);
-        }
-    }
+
 
     //methods:
 
     public static void main(String[] args) {
         // Instance of this class
+        VehicleInfo info = new VehicleInfo();
         CarController cc = new CarController();
+
+        info.addObserver(cc);
+
+        info.addVehicle(new Volvo240());
+        info.addVehicle(new Saab95());
+        info.addVehicle(new Scania());
 
         cc.vehicles.add(new Volvo240());
         cc.vehicles.add(new Saab95());
@@ -51,6 +51,11 @@ public class CarController {
 
         // Start the timer
         cc.timer.start();
+    }
+
+    @Override
+    public void actOnChange(ArrayList<Vehicle> vehicles) {
+
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the

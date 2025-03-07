@@ -10,14 +10,13 @@ import javax.swing.*;
 
 // This panel represents the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel{
+public class DrawPanel extends JPanel implements VehicleObserver{
 
     // Just a single image, TODO: Generalize
     // To keep track of a single car's position
 
     private ArrayList<BufferedImage> carImages = new ArrayList<>();
     private ArrayList<Point> carPoints = new ArrayList<>();
-    private VehicleInfo info;
 
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
@@ -80,5 +79,10 @@ public class DrawPanel extends JPanel{
     }
     public void removeImage(int imageIndex) {
         carImages.remove(imageIndex);
+    }
+
+    @Override
+    public void actOnChange(ArrayList<Vehicle> vehicles) {
+
     }
 }

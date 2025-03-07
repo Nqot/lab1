@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public interface VehicleObserver {
-    void actOnChange(String name, int newStatus);
+    void actOnChange(ArrayList<Vehicle> vehicles);
 }
