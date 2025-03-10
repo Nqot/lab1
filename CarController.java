@@ -17,41 +17,17 @@ public class CarController implements VehicleObserver {
     private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
+    protected Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-    private ArrayList<Vehicle> vehicles = new ArrayList<>();
+    protected ArrayList<Vehicle> vehicles = new ArrayList<>();
     private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(10);
 
 
 
     //methods:
-
-    public static void main(String[] args) {
-        // Instance of this class
-        VehicleInfo info = new VehicleInfo();
-        CarController cc = new CarController();
-
-        info.addObserver(cc);
-
-        info.addVehicle(new Volvo240());
-        info.addVehicle(new Saab95());
-        info.addVehicle(new Scania());
-
-        cc.vehicles.add(new Volvo240());
-        cc.vehicles.add(new Saab95());
-        cc.vehicles.add(new Scania());
-
-
-
-        // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
-
-        // Start the timer
-        cc.timer.start();
-    }
 
     @Override
     public void actOnChange(ArrayList<Vehicle> vehicles) {

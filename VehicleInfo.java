@@ -2,13 +2,12 @@ import java.util.ArrayList;
 
 public class VehicleInfo {
     private ArrayList<Vehicle> Vehicles;
+    private final ArrayList<VehicleObserver> observers = new ArrayList<>();
 
     VehicleInfo(){
         Vehicles = new ArrayList<>();
 
     }
-
-    private final ArrayList<VehicleObserver> observers = new ArrayList<>();
 
     public void addObserver(VehicleObserver observer) {observers.add(observer);}
 
