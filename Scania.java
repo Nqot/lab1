@@ -3,10 +3,12 @@ import java.awt.*;
 public class Scania extends Truck {
 
     private Trailer trailer;
+    private String imgPath;
 
     public Scania() {
         super(2, 75, "White", "Scania");
         this.trailer = new Trailer();
+        this.imgPath = "pics/Scania.jpg";
 
     }
 
@@ -26,4 +28,6 @@ public class Scania extends Truck {
     public void move(){
         if (this.trailer.getTrailerAngle() == 0) {super.move();}
     }
+
+    public String getImage() { return imgPath; }
 }

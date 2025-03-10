@@ -21,6 +21,7 @@ public class CarController implements VehicleObserver {
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
+    VehicleInfo model;
     // A list of cars, modify if needed
     protected ArrayList<Vehicle> vehicles = new ArrayList<>();
     private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(10);
@@ -39,104 +40,43 @@ public class CarController implements VehicleObserver {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Vehicle vehicle : vehicles) {
-                vehicle.move();
-                checkBoundaries(vehicle);
-                int x = (int) Math.round(vehicle.getX());
-                int y = (int) Math.round(vehicle.getY());
-                frame.drawPanel.moveit(x, y, vehicles.indexOf(vehicle));
-                // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
-            }
-            loadVolvoToWorkshop(vehicles.get(0));
-
+            model.act();
         }
     }
 
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-       for (Vehicle vehicle : vehicles) {
-            vehicle.gas(gas);
-       }
+        model.gas(gas);
     }
 
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (Vehicle vehicle : vehicles) {
-            vehicle.brake(brake);
-        }
+        model.brake(brake);
     }
 
     void startEngine() {
-        for (Vehicle vehicle : vehicles) {
-            vehicle.startEngine();
-        }
+        model.startEngine();
     }
 
     void stopEngine() {
-        for (Vehicle vehicle : vehicles) {
-            vehicle.stopEngine();
-        }
+        model.stopEngine();
     }
 
     void turboOn() {
-        for (Vehicle vehicle : vehicles) {
-            if (vehicle instanceof Saab95) {
-                ((Saab95) vehicle).setTurboOn();
-            }
-        }
+        model.turboOn();
     }
 
     void turboOff() {
-        for (Vehicle vehicle : vehicles) {
-            if (vehicle instanceof Saab95) {
-                ((Saab95) vehicle).setTurboOff();
-            }
-        }
+        model.turboOff();
     }
 
     void bedUp() {
-        for (Vehicle vehicle : vehicles) {
-            if (vehicle instanceof Scania) {
-                ((Scania) vehicle).setTrailerAngle(0);
-            }
-        }
+        model.bedUp();
     }
 
     void bedDown() {
-        for (Vehicle vehicle : vehicles) {
-            if (vehicle instanceof Scania) {
-                ((Scania) vehicle).setTrailerAngle(70);
-            }
-        }
+        model.bedDown();
     }
-
-    void loadVolvoToWorkshop(Vehicle vehicle) {
-            if (vehicle instanceof Volvo240) {
-                if (Math.abs(vehicle.getX() - volvoWorkshop.getX()) < 10 && Math.abs(vehicle.getY() - volvoWorkshop.getY()) < 10) {
-                    if (vehicle.getCurrentSpeed() > 0) {
-                        volvoWorkshop.loadCar((Volvo240) vehicle);
-                        vehicles.remove(vehicle);
-                        frame.drawPanel.removePoint(0);
-                        frame.drawPanel.removeImage(0);
-
-                    }
-                }
-            }
-    }
-
-    private void checkBoundaries(Vehicle vehicle) {
-        if (vehicle.getX() < 0 || vehicle.getX() > frame.getWidth() - 100) {
-            vehicle.turnLeft();
-            vehicle.turnLeft();
-        }
-        if (vehicle.getY() < 0 || vehicle.getY() > frame.getHeight() - 240) {
-            vehicle.turnLeft();
-            vehicle.turnLeft();
-        }
-    }
-
-
 
 }

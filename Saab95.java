@@ -4,11 +4,13 @@
 public class Saab95 extends Car {
 
     private boolean turboOn;
+    private final String imgPath;
 
     public Saab95() {
         super(2, 125, "red", "Saab95");
         this.turboOn = false;
         this.x = 100;
+        this.imgPath = "pics/Saab95.jpg";
     }
 
     public void setTurboOn() {
@@ -24,4 +26,5 @@ public class Saab95 extends Car {
         double turbo = turboOn ? 1.3 : 1;
         return super.getSpeedFactor() * turbo;
     }
+    public String getImage() { return imgPath; }
 }

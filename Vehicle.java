@@ -1,3 +1,5 @@
+import java.awt.image.BufferedImage;
+
 public abstract class Vehicle implements Movable{
 
     private final int nrDoors;
@@ -9,6 +11,7 @@ public abstract class Vehicle implements Movable{
     protected double x; // X-position
     protected double y; // Y-position
     private int direction; // 0 = North, 1 = East, 2 = South, 3 = West
+    private String imgPath;
 
     protected Vehicle (int nrDoors, double enginePower, String color, String modelName) {
         this.nrDoors = nrDoors;
@@ -113,4 +116,6 @@ public abstract class Vehicle implements Movable{
     public double getY() {
         return y;
     }
+
+    public String getImage() { return imgPath; }
 }
