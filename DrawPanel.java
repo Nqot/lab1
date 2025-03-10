@@ -10,10 +10,22 @@ import javax.swing.*;
 
 // This panel represents the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel implements VehicleObserver{
+public class DrawPanel extends JPanel{
 
     // Just a single image, TODO: Generalize
     // To keep track of a single car's position
+
+    public void setCarImage(String imgPath) {
+        try{
+            this.carImage = ImageIO.read(DrawPanel.class.getResourceAsStream(imgPath));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void setCarPoint(Point carPoint) {
+        this.carPoint = carPoint;
+    }
 
     private BufferedImage carImage;
     private Point carPoint;
@@ -57,17 +69,5 @@ public class DrawPanel extends JPanel implements VehicleObserver{
 
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
     }
-    @Override
-    public void actOnChange(ArrayList<Vehicle> vehicles) {
-        for (Vehicle vehicle : vehicles){
-            carPoint = new Point((int)vehicle.getX(), (int)vehicle.getY());
-            try{
-                carImage = ImageIO.read(DrawPanel.class.getResourceAsStream(vehicle.getImage()));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            this.repaint();
-        }
 
-    }
 }

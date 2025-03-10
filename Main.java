@@ -1,21 +1,19 @@
 public class Main {
     public static void main(String[] args) {
-        VehicleInfo info = new VehicleInfo();
+        //VehicleInfo info = new VehicleInfo();
         CarController cc = new CarController();
+        CarView view = new CarView("CarSim 1.0", cc);
 
-        info.addObserver(cc);
+        cc.model.addObserver(cc);
+        cc.model.addObserver(view);
 
-        info.addVehicle(new Volvo240());
-        info.addVehicle(new Saab95());
-        info.addVehicle(new Scania());
+        cc.model.addVehicle(new Volvo240());
+        cc.model.addVehicle(new Saab95());
+        cc.model.addVehicle(new Scania());
 
-        cc.vehicles.add(new Volvo240());
-        cc.vehicles.add(new Saab95());
-        cc.vehicles.add(new Scania());
+        
 
 
-        // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
 
         // Start the timer
         cc.timer.start();

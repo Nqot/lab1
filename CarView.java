@@ -4,6 +4,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -13,7 +14,7 @@ import java.awt.event.ActionListener;
  * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
-public class CarView extends JFrame{
+public class CarView extends JFrame implements VehicleObserver{
     private static final int X = 800;
     private static final int Y = 800;
 
@@ -43,6 +44,15 @@ public class CarView extends JFrame{
     public CarView(String framename, CarController cc){
         this.carC = cc;
         initComponents(framename);
+    }
+
+    @Override
+    public void actOnChange(ArrayList<Vehicle> vehicles) {
+        for (Vehicle vehicle : vehicles) {
+            drawPanel.setCarPoint(new Point((int) vehicle.getX(), (int) vehicle.getY()));
+            drawPanel.setCarImage(vehicle.getImage());
+            this.repaint();
+        }
     }
 
     // Sets everything in place and fits everything
@@ -159,5 +169,9 @@ public class CarView extends JFrame{
         this.setVisible(true);
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+
+
     }
 }
