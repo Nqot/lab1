@@ -10,7 +10,7 @@ import java.util.ArrayList;
 * modifying the model state and the updating the view.
  */
 
-public class CarController implements VehicleObserver {
+public class CarController {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -22,17 +22,8 @@ public class CarController implements VehicleObserver {
     // The frame that represents this instance View of the MVC pattern
     VehicleInfo model = new VehicleInfo();
     // A list of cars, modify if needed
-    protected ArrayList<Vehicle> vehicles = new ArrayList<>();
-    private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(10);
-
-
 
     //methods:
-
-    @Override
-    public void actOnChange(ArrayList<Vehicle> vehicles) {
-
-    }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.

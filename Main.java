@@ -11,7 +11,7 @@ public class Main {
         cc.model.addVehicle(new Saab95());
         cc.model.addVehicle(new Scania());
 
-        
+
 
 
 

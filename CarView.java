@@ -51,8 +51,9 @@ public class CarView extends JFrame implements VehicleObserver{
         for (Vehicle vehicle : vehicles) {
             drawPanel.setCarPoint(new Point((int) vehicle.getX(), (int) vehicle.getY()));
             drawPanel.setCarImage(vehicle.getImage());
-            this.repaint();
+
         }
+        this.repaint();
     }
 
     // Sets everything in place and fits everything
