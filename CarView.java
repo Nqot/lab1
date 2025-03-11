@@ -48,12 +48,8 @@ public class CarView extends JFrame implements VehicleObserver{
 
     @Override
     public void actOnChange(ArrayList<Vehicle> vehicles) {
-        for (Vehicle vehicle : vehicles) {
-            drawPanel.setCarPoint(new Point((int) vehicle.getX(), (int) vehicle.getY()));
-            drawPanel.setCarImage(vehicle.getImage());
-
-        }
-        this.repaint();
+        drawPanel.updateVehicles(vehicles);
+        drawPanel.repaint();
     }
 
     // Sets everything in place and fits everything

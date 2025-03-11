@@ -1,9 +1,25 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VehicleInfo {
     private ArrayList<Vehicle> vehicles;
     private ArrayList<VehicleObserver> observers;
     private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(2);
+    private ArrayList<Vehicle> toBeRemoved;
+
+    private final int delay = 50;
+    protected Timer timer = new Timer(delay, new TimerListener());
+
+    private class TimerListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            act();
+
+            multicastStatusChange(vehicles);
+        }
+    }
+
 
     VehicleInfo(){
         vehicles = new ArrayList<>();
@@ -13,8 +29,22 @@ public class VehicleInfo {
     public void act(){
         for (Vehicle vehicle : vehicles) {
             move(vehicle);
+            checkBoundaries(vehicle);
         }
-        multicastStatusChange(vehicles);
+        toBeRemoved = new ArrayList<>();
+        loadVolvoToWorkshop();
+        if (!toBeRemoved.isEmpty()){for (Vehicle vehicle : toBeRemoved){vehicles.remove(vehicle);}}
+    }
+
+    private void checkBoundaries(Vehicle vehicle) {
+        if (vehicle.getX() < 0 || vehicle.getX() > 700) {
+            vehicle.turnLeft();
+            vehicle.turnLeft();
+        }
+        if (vehicle.getY() < 0 || vehicle.getY() > 560) {
+            vehicle.turnLeft();
+            vehicle.turnLeft();
+        }
     }
 
     private void move(Vehicle vehicle) {
@@ -77,19 +107,16 @@ public class VehicleInfo {
         }
     }
 
-    void loadVolvoToWorkshop(Vehicle vehicle) {
-        if (vehicle instanceof Volvo240) {
-            if (Math.abs(vehicle.getX() - volvoWorkshop.getX()) < 10 && Math.abs(vehicle.getY() - volvoWorkshop.getY()) < 10) {
-                if (vehicle.getCurrentSpeed() > 0) {
+    void loadVolvoToWorkshop() {
+        for (Vehicle vehicle : vehicles){
+            if (vehicle instanceof Volvo240) {
+                if (Math.abs(vehicle.getX() - volvoWorkshop.getX()) < 10 && Math.abs(vehicle.getY() - volvoWorkshop.getY()) < 10) {
                     volvoWorkshop.loadCar((Volvo240) vehicle);
-                    vehicles.remove(vehicle);
-
-
+                    toBeRemoved.add(vehicle);
                 }
             }
         }
     }
-
 
     public void addObserver(VehicleObserver observer) {observers.add(observer);}
 
@@ -99,10 +126,6 @@ public class VehicleInfo {
         for (VehicleObserver observer : observers) {
             observer.actOnChange(vehicles);
         }
-    }
-
-    public ArrayList<Vehicle> getVehicles() {
-        return vehicles;
     }
 
     public void addVehicle(Vehicle vehicle) {

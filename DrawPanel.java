@@ -2,9 +2,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -15,20 +12,8 @@ public class DrawPanel extends JPanel{
     // Just a single image, TODO: Generalize
     // To keep track of a single car's position
 
-    public void setCarImage(String imgPath) {
-        try{
-            this.carImage = ImageIO.read(DrawPanel.class.getResourceAsStream(imgPath));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 
-    public void setCarPoint(Point carPoint) {
-        this.carPoint = carPoint;
-    }
-
-    private BufferedImage carImage;
-    private Point carPoint;
+    private ArrayList<Vehicle> vehicles;
 
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
@@ -58,13 +43,24 @@ public class DrawPanel extends JPanel{
 
     }
 
+    protected void updateVehicles(ArrayList<Vehicle> newVehicles) {
+        vehicles = newVehicles;
+    }
+
     // This method is called each time the panel updates/refreshes/repaints itself
     // TODO: Change to suit your needs.
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        g.drawImage(carImage, carPoint.x, carPoint.y, null);
+        BufferedImage img;
+        try {
+            for (Vehicle vehicle : vehicles) {
+                img = ImageIO.read(DrawPanel.class.getResourceAsStream(vehicle.getImage()));
+                g.drawImage(img, (int)vehicle.getX(), (int)vehicle.getY(), null);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
 
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
