@@ -47,16 +47,16 @@ public class VehicleInfo {
 
     void turboOn() {
         for (Vehicle vehicle : vehicles) {
-            if (vehicle instanceof Saab95) {
-                ((Saab95) vehicle).setTurboOn();
+            if (vehicle instanceof TurboCar) {
+                ((TurboCar) vehicle).setTurboOn();
             }
         }
     }
 
     void turboOff() {
         for (Vehicle vehicle : vehicles) {
-            if (vehicle instanceof Saab95) {
-                ((Saab95) vehicle).setTurboOff();
+            if (vehicle instanceof TurboCar) {
+                ((TurboCar) vehicle).setTurboOff();
             }
         }
     }

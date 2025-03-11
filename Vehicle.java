@@ -1,5 +1,3 @@
-import java.awt.image.BufferedImage;
-
 public abstract class Vehicle implements Movable{
 
     private final int nrDoors;
