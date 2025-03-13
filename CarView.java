@@ -15,13 +15,13 @@ import java.util.ArrayList;
  **/
 
 public class CarView extends JFrame implements VehicleObserver{
-    private static final int X = 800;
+    private static final int X = 1300;
     private static final int Y = 800;
 
     // The controller member
     CarController carC;
 
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    DrawPanel drawPanel = new DrawPanel(X-400, Y-240);
 
     JPanel controlPanel = new JPanel();
 
@@ -29,6 +29,8 @@ public class CarView extends JFrame implements VehicleObserver{
     JSpinner gasSpinner = new JSpinner();
     int gasAmount = 0;
     JLabel gasLabel = new JLabel("Amount of gas");
+
+    JPanel NewCarPanel = new JPanel();
 
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
@@ -39,6 +41,8 @@ public class CarView extends JFrame implements VehicleObserver{
 
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
+
+    JButton newCarButton = new JButton("New Car");
 
     // Constructor
     public CarView(String framename, CarController cc){
@@ -90,7 +94,7 @@ public class CarView extends JFrame implements VehicleObserver{
         controlPanel.add(brakeButton, 3);
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
-        controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
+        controlPanel.setPreferredSize(new Dimension((X/5)-15, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
 
@@ -106,8 +110,16 @@ public class CarView extends JFrame implements VehicleObserver{
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
         this.add(stopButton);
 
+        newCarButton.setPreferredSize(new Dimension(X/5-15,200));
+        newCarButton.setBackground(Color.CYAN);
+        this.add(newCarButton);
+
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
+        newCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { carC.addCar();}
+        });
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

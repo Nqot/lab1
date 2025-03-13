@@ -128,7 +128,7 @@ public class VehicleInfo {
         }
     }
 
-    public void addVehicle(Vehicle vehicle) {
+    public void addVehicle() {
         vehicles.add(vehicle);
         multicastStatusChange(vehicles);
     }

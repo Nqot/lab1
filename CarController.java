@@ -49,4 +49,5 @@ public class CarController {
         model.bedDown();
     }
 
+    public void addCar() { model.addVehicle();}
 }

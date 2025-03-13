@@ -7,7 +7,7 @@ public class Trailer implements HasTrailer{
 
     @Override
     public int getTrailerAngle() {return trailerAngle;}
-    
+
     @Override
     public void setTrailerAngle(int angle) {
         if (angle >= 0 && angle <= 70){trailerAngle = angle;}
