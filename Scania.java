@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Scania extends Truck {
+public class Scania extends Truck implements HasTrailer{
 
     private Trailer trailer;
     private String imgPath;
@@ -12,11 +12,13 @@ public class Scania extends Truck {
 
     }
 
+    @Override
     public void setTrailerAngle(int angle){
         if (getCurrentSpeed() == 0) {this.trailer.setTrailerAngle(angle);}
     }
 
-    public double getTrailerAngle(){return this.trailer.getTrailerAngle();}
+    @Override
+    public int getTrailerAngle(){return this.trailer.getTrailerAngle();}
 
 
     @Override
