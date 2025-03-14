@@ -2,9 +2,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -15,19 +12,13 @@ public class DrawPanel extends JPanel{
     // Just a single image, TODO: Generalize
     // To keep track of a single car's position
 
-    private ArrayList<BufferedImage> carImages = new ArrayList<>();
-    private ArrayList<Point> carPoints = new ArrayList<>();
-    private VehicleInfo info;
+
+    private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
 
     // TODO: Make this general for all cars
-    void moveit(int x, int y, int carIndex){
-
-        carPoints.get(carIndex).x = x;
-        carPoints.get(carIndex).y = y;
-    }
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y) {
@@ -43,17 +34,6 @@ public class DrawPanel extends JPanel{
 
             // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
             // if you are starting in IntelliJ.
-            BufferedImage volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
-            carImages.add(volvoImage);
-            carPoints.add(new Point());
-
-            BufferedImage saabImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
-            carImages.add(saabImage);
-            carPoints.add(new Point());
-
-            BufferedImage scaniaImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
-            carImages.add(scaniaImage);
-            carPoints.add(new Point());
 
             volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
         } catch (IOException ex)
@@ -63,22 +43,27 @@ public class DrawPanel extends JPanel{
 
     }
 
+    protected void updateVehicles(ArrayList<Vehicle> newVehicles) {
+        vehicles = newVehicles;
+    }
+
     // This method is called each time the panel updates/refreshes/repaints itself
     // TODO: Change to suit your needs.
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        for (int i = 0; i < carPoints.size(); i++) {
-            g.drawImage(carImages.get(i), carPoints.get(i).x, carPoints.get(i).y, null);
+        BufferedImage img;
+        try {
+            for (Vehicle vehicle : vehicles) {
+                img = ImageIO.read(DrawPanel.class.getResourceAsStream(vehicle.getImage()));
+                g.drawImage(img, (int)vehicle.getX(), (int)vehicle.getY(), null);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
+
 
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
     }
-    public void removePoint(int pointIndex){
-        carPoints.remove(pointIndex);
-    }
-    public void removeImage(int imageIndex) {
-        carImages.remove(imageIndex);
-    }
+
 }

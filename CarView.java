@@ -4,6 +4,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -13,14 +14,14 @@ import java.awt.event.ActionListener;
  * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
-public class CarView extends JFrame{
-    private static final int X = 800;
+public class CarView extends JFrame implements VehicleObserver{
+    private static final int X = 1300;
     private static final int Y = 800;
 
     // The controller member
     CarController carC;
 
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    DrawPanel drawPanel = new DrawPanel(X-400, Y-240);
 
     JPanel controlPanel = new JPanel();
 
@@ -28,6 +29,8 @@ public class CarView extends JFrame{
     JSpinner gasSpinner = new JSpinner();
     int gasAmount = 0;
     JLabel gasLabel = new JLabel("Amount of gas");
+
+    JPanel NewCarPanel = new JPanel();
 
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
@@ -39,10 +42,19 @@ public class CarView extends JFrame{
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
 
+    JButton newCarButton = new JButton("New Car");
+    JButton removeCarButton = new JButton("Remove Car");
+
     // Constructor
     public CarView(String framename, CarController cc){
         this.carC = cc;
         initComponents(framename);
+    }
+
+    @Override
+    public void actOnChange(ArrayList<Vehicle> vehicles) {
+        drawPanel.updateVehicles(vehicles);
+        drawPanel.repaint();
     }
 
     // Sets everything in place and fits everything
@@ -83,7 +95,7 @@ public class CarView extends JFrame{
         controlPanel.add(brakeButton, 3);
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
-        controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
+        controlPanel.setPreferredSize(new Dimension((X/5)-15, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
 
@@ -99,8 +111,23 @@ public class CarView extends JFrame{
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
         this.add(stopButton);
 
+        newCarButton.setPreferredSize(new Dimension(X/5-15,200));
+        newCarButton.setBackground(Color.CYAN);
+        this.add(newCarButton);
+        removeCarButton.setPreferredSize(new Dimension(X/5-15,200));
+        removeCarButton.setBackground(Color.yellow);
+        this.add(removeCarButton);
+
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
+        newCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { carC.addCar();}
+        });
+        removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { carC.removeRandom();}
+        });
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -159,5 +186,9 @@ public class CarView extends JFrame{
         this.setVisible(true);
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+
+
     }
 }

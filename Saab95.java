@@ -1,20 +1,24 @@
 
 
 // Skapar ytterligare en subclass, Saab95, som ärver från Car men lägger till turbo metod
-public class Saab95 extends Car {
+public class Saab95 extends Car implements TurboCar{
 
     private boolean turboOn;
+    private final String imgPath;
 
     public Saab95() {
         super(2, 125, "red", "Saab95");
         this.turboOn = false;
         this.x = 100;
+        this.imgPath = "pics/Saab95.jpg";
     }
 
+    @Override
     public void setTurboOn() {
         turboOn = true;
     }
 
+    @Override
     public void setTurboOff() {
         turboOn = false;
     }
@@ -24,4 +28,6 @@ public class Saab95 extends Car {
         double turbo = turboOn ? 1.3 : 1;
         return super.getSpeedFactor() * turbo;
     }
+
+    public String getImage() { return imgPath; }
 }
