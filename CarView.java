@@ -43,6 +43,7 @@ public class CarView extends JFrame implements VehicleObserver{
     JButton stopButton = new JButton("Stop all cars");
 
     JButton newCarButton = new JButton("New Car");
+    JButton removeCarButton = new JButton("Remove Car");
 
     // Constructor
     public CarView(String framename, CarController cc){
@@ -113,12 +114,19 @@ public class CarView extends JFrame implements VehicleObserver{
         newCarButton.setPreferredSize(new Dimension(X/5-15,200));
         newCarButton.setBackground(Color.CYAN);
         this.add(newCarButton);
+        removeCarButton.setPreferredSize(new Dimension(X/5-15,200));
+        removeCarButton.setBackground(Color.yellow);
+        this.add(removeCarButton);
 
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
         newCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { carC.addCar();}
+        });
+        removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { carC.removeRandom();}
         });
         gasButton.addActionListener(new ActionListener() {
             @Override

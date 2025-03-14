@@ -49,5 +49,7 @@ public class CarController {
         model.bedDown();
     }
 
-    public void addCar() { model.addVolvo();}
+    public void addCar() { model.addSaab();}
+
+    public void removeRandom() { model.removeRandomVehicle();}
 }

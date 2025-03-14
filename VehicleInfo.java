@@ -2,13 +2,14 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class VehicleInfo {
     private ArrayList<Vehicle> vehicles;
     private ArrayList<VehicleObserver> observers;
     private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(2);
     private ArrayList<Vehicle> toBeRemoved;
-    private Volvo240Factory volvoFactory = new Volvo240Factory();
+    private Saab95Factory saabFactory = new Saab95Factory();
     private final int delay = 50;
     protected Timer timer = new Timer(delay, new TimerListener());
 
@@ -131,8 +132,14 @@ public class VehicleInfo {
         vehicles.add(vehicle);
     }
 
-    public void addVolvo() {
-        vehicles.add(volvoFactory.createVehicle());
-        multicastStatusChange(vehicles);
+    public void addSaab() {
+        if (vehicles.size() < 10) {
+            vehicles.add(saabFactory.createVehicle());
+            multicastStatusChange(vehicles);}
+    }
+
+    public void removeRandomVehicle() {
+        Random rand = new Random();
+        if (!vehicles.isEmpty()) {vehicles.remove(vehicles.get(rand.nextInt(vehicles.size())));}
     }
 }
