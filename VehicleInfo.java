@@ -8,7 +8,7 @@ public class VehicleInfo {
     private ArrayList<VehicleObserver> observers;
     private Repairshop<Volvo240> volvoWorkshop = new Repairshop<>(2);
     private ArrayList<Vehicle> toBeRemoved;
-
+    private Volvo240Factory volvoFactory = new Volvo240Factory();
     private final int delay = 50;
     protected Timer timer = new Timer(delay, new TimerListener());
 
@@ -127,9 +127,12 @@ public class VehicleInfo {
             observer.actOnChange(vehicles);
         }
     }
-
-    public void addVehicle() {
+    public void addVehicle(Vehicle vehicle) {
         vehicles.add(vehicle);
+    }
+
+    public void addVolvo() {
+        vehicles.add(volvoFactory.createVehicle());
         multicastStatusChange(vehicles);
     }
 }
